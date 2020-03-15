@@ -53,7 +53,8 @@ def topCountriesEndpoint():
 
 @BP.route("/risky/", methods=["GET", "OPTIONS"])
 def riskyTransactionsEndpoint():
-    FORMAT = "%Y-%m-%dT%H:%M:%S.%f+00:00"
+    FORMAT1 = "%Y-%m-%dT%H:%M:%S.%f+00:00"
+    FORMAT2 = "%Y-%m-%dT%H:%M:%S+00:00"
     hasura = Hasura(os.environ["HASURA_ADDR"], os.environ["HASURA_SCRT"])
 
     nonSafeTransactionsQuery = """
@@ -139,8 +140,13 @@ def riskyTransactionsEndpoint():
         """
         toPoint = transaction["to"]
         gteDate = transaction["datetime"]
-        lteDate = datetime.strptime(gteDate, FORMAT) + timedelta(hours=1)
-        lteDate = datetime.strftime(lteDate, FORMAT)
+        try:
+            lteDate = datetime.strptime(gteDate, FORMAT1) + timedelta(hours=1)
+            lteDate = datetime.strftime(lteDate, FORMAT1)
+        except:
+            lteDate = datetime.strptime(gteDate, FORMAT2) + timedelta(hours=1)
+            lteDate = datetime.strftime(lteDate, FORMAT2)
+        
         
         potentialRiskyEntity = hasura.query(riskyEntityQuery % (toPoint, gteDate, lteDate,toPoint, gteDate, lteDate,toPoint, gteDate, lteDate, toPoint, gteDate, lteDate))["data"]["person_record_view"]
         for potentialEntity in potentialRiskyEntity:
