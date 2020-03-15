@@ -1,0 +1,13 @@
+version: '3'
+services:
+  api_crm_anti_corona:
+    restart: always
+    image: atlekbai/api_crm_anti_corona:latest
+    ports:
+      - 7071:80
+    volumes:
+      - .:/app
+    logging:
+      driver: json-file
+      options:
+        max-size: 25m
