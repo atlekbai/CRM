@@ -2,7 +2,7 @@
 
 ### Подготовка: установка пакетов и окружения
 
-```console
+```bash
 $> pip install -r requirements.txt
 $> export FLASK_APP=src
 $> export HASURA_ADDR="http://lol.kek/v1/graphql"
@@ -13,6 +13,6 @@ $> export HASURA_SCRT="pressFtoPayRespect111"
 
 Программа запустится на порту :5000.
 
-```console
+```bash
 $> flask run
 ```
