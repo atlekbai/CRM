@@ -1,6 +1,6 @@
 ## CRM система для отслеживания въезжающих в страну лиц
 <p align="center"> 
-    <img src="https://image.freepik.com/free-vector/mobile-app-development-background_73903-295.jpg">
+    <img src="https://cdn.dribbble.com/users/730703/screenshots/6047201/robo_reg_1024x1024_1x.jpg">
 </p>
 
 ### Что было сделано?
