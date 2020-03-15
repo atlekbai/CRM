@@ -63,3 +63,17 @@
 - API: Python Flask
 - Распознавание текста с изображения: Google AI Platform
 - Docker
+
+### Команда ✨
+
+<table>
+  <tr>
+    <td align="center">
+        <a href="https://github.com/atlekbai/"><img src="https://avatars0.githubusercontent.com/u/29381624?s=460&u=f83e35b2456f739567a4900ff3da2e3d038a411f&v=4" width="100px;" alt=""/><br />
+            <sub><b>Ali Tlekbai</b></sub>
+        </a><br />
+    </td>
+    <td align="center"><a href="https://github.com/Zulbukharov/"><img src="https://avatars3.githubusercontent.com/u/25000090?s=460&u=b035b85331398c75a59afb1917f0c64e2c3885be&v=4" width="100px;" alt=""/><br /><sub><b>Abylaikhan Zulbukharov</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/sakenism/"><img src="https://avatars0.githubusercontent.com/u/35443199?s=460&u=815602da8c211ac1d62db665018d5e64a6f824da&v=4" width="100px;" alt=""/><br /><sub><b>Saken Mukanov</b></sub></a><br /></td>
+  </tr>
+</table>
