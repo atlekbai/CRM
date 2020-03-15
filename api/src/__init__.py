@@ -10,7 +10,10 @@ def create_app(test_config=None):
 
     from src.blueprints import countries
     from src.blueprints import person
+    from src.blueprints import detect
+
     app.register_blueprint(countries.BP)
     app.register_blueprint(person.BP)
+    app.register_blueprint(detect.BP)
 
     return app
