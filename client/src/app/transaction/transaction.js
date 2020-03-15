@@ -92,6 +92,10 @@ class TransactionView extends Component {
       attrs = "",
       contacted = false,
       stay = "",
+      from = "",
+      to = "",
+      datetime = "",
+      flight_id = "",
       person: { lastName = "", firstName = "", id: user_id, phone = "" }
     } = this.props.transaction;
 
@@ -121,8 +125,9 @@ class TransactionView extends Component {
                     <div className="mr-auto">
                       <p className="highlight-text text-white">
                         {" "}
-                        {firstName} {lastName}{" "}
+                        {from} -> {to}{" "}
                       </p>
+                      
                       {/* <p className="text-white"> Гражданство: {country}</p> */}
                       <div
                         className="badge badge-pill"
@@ -133,12 +138,14 @@ class TransactionView extends Component {
                       </div>
                     </div>
                     <div className="ml-auto mt-2 mt-xl-0">
-                      <Sparklines
-                        data={[4, 3, 10, 9, 4, 3, 8, 6, 7, 8]}
-                        style={{ width: "110px", height: "70px" }}
-                      >
-                        <SparklinesBars barWidth={4} style={{ fill: "#fff" }} />
-                      </Sparklines>
+                        <p className="highlight-text text-white">
+                          {" "}
+                          {datetime}{" "}
+                        </p>
+                        <p className="highlight-text text-white">
+                          {" "}
+                          {flight_id}{" "}
+                        </p>
                     </div>
                   </div>
                 </div>

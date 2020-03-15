@@ -26,17 +26,6 @@ class Navbar extends Component {
           >
             <i className="mdi mdi-menu"></i>
           </button>
-          <ul className="navbar-nav navbar-nav-left header-links">
-            <li className="nav-item active d-none d-xl-flex">
-              <a
-                href="!#"
-                onClick={evt => evt.preventDefault()}
-                className="nav-link"
-              >
-                <i className="mdi mdi-elevation-rise"></i>Stat
-              </a>
-            </li>
-          </ul>
           <ul className="navbar-nav navbar-nav-right ml-lg-auto">
             <li className="nav-item  nav-profile border-0">
               <Dropdown alignRight>

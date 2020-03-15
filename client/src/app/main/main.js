@@ -81,7 +81,7 @@ export default class Main extends Component {
           <div className="col-lg-12 stretch-card">
             <div className="card">
               <div className="card-body">
-                <h4 className="card-title">Потенциально зараженные</h4>
+                <h4 className="card-title">Потенциально опасные</h4>
                 <p className="card-description"></p>
                 <div className="table-responsive">
                   <table className="table table-bordered">

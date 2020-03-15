@@ -129,12 +129,22 @@ class Sidebar extends Component {
           </li>
           <li
             className={
+              this.isPathActive("/dashboard") ? "nav-item active" : "nav-item"
+            }
+          >
+            <Link className="nav-link" to="/dashboard">
+              <i className="mdi mdi-television menu-icon"></i>
+              <span className="menu-title">Главная</span>
+            </Link>
+          </li>
+          <li
+            className={
               this.isPathActive("/tortik") ? "nav-item active" : "nav-item"
             }
           >
             <Link className="nav-link" to="/tortik">
               <i className="mdi mdi-television menu-icon"></i>
-              <span className="menu-title">Tortik</span>
+              <span className="menu-title">Тортик</span>
             </Link>
           </li>
           <li
@@ -144,7 +154,7 @@ class Sidebar extends Component {
           >
             <Link className="nav-link" to="/add-person">
               <i className="mdi mdi-television menu-icon"></i>
-              <span className="menu-title">Add person</span>
+              <span className="menu-title">Добавить</span>
             </Link>
           </li>
           <li
@@ -156,7 +166,7 @@ class Sidebar extends Component {
           >
             <Link className="nav-link" to="/transactions">
               <i className="mdi mdi-television menu-icon"></i>
-              <span className="menu-title">Transactions</span>
+              <span className="menu-title">Транзакции</span>
             </Link>
           </li>
 
@@ -167,19 +177,10 @@ class Sidebar extends Component {
           >
             <Link className="nav-link" to="/persons">
               <i className="mdi mdi-television menu-icon"></i>
-              <span className="menu-title">Persons</span>
+              <span className="menu-title">Персоны</span>
             </Link>
           </li>
-          <li
-            className={
-              this.isPathActive("/dashboard") ? "nav-item active" : "nav-item"
-            }
-          >
-            <Link className="nav-link" to="/dashboard">
-              <i className="mdi mdi-television menu-icon"></i>
-              <span className="menu-title">Dashboard</span>
-            </Link>
-          </li>
+          
         </ul>
       </nav>
     );

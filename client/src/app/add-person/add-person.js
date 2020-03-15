@@ -129,8 +129,6 @@ class DocIDForm extends React.Component {
         <div className="col-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
-              <h4 className="card-title">Default form</h4>
-              <p className="card-description"> Basic form layout </p>
               <form className="forms-sample"></form>
               <Form.Group>
                 <label htmlFor="docID">ИИН</label>
@@ -176,8 +174,8 @@ const TransactionDataForm = ({ userId }) => {
       <div className="col-12 grid-margin stretch-card">
         <div className="card">
           <div className="card-body">
-            <h4 className="card-title">Default form</h4>
-            <p className="card-description"> Basic form layout </p>
+            <h4 className="card-title">Транзакция</h4>
+            
             <form
               className="forms-sample"
               onSubmit={e => {
@@ -321,7 +319,7 @@ const TransactionDataForm = ({ userId }) => {
                 />
               </Form.Group>
               <button type="submit" className="btn btn-primary mr-2">
-                Submit
+                Добавить
               </button>
               {mutationLoading && <p>Loading...</p>}
               {mutationError && <p>Error :( Please try again</p>}
@@ -379,8 +377,7 @@ const UserDataForm = ({
       <div className="col-12 grid-margin stretch-card">
         <div className="card">
           <div className="card-body">
-            <h4 className="card-title">Default form</h4>
-            <p className="card-description"> Basic form layout </p>
+            <h4 className="card-title">Персональные данные</h4>
             <form
               className="forms-sample"
               onSubmit={e => {
@@ -463,7 +460,7 @@ const UserDataForm = ({
               </Form.Group>
               {oldDocID || (
                 <button type="submit" className="btn btn-primary mr-2">
-                  Submit
+                  Добавить
                 </button>
               )}
               {mutationLoading && <p>Loading...</p>}

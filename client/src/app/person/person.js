@@ -117,11 +117,7 @@ class RecordsView extends Component {
         <div className="col-lg-12 grid-margin stretch-card">
           <div className="card">
             <div className="card-body">
-              <h4 className="card-title">Hoverable Table</h4>
-              <p className="card-description">
-                {" "}
-                Add className <code>.table-hover</code>
-              </p>
+              <h4 className="card-title">Журнал активности</h4>
               <div className="table-responsive">
                 <table className="table table-hover">
                   <tbody>
