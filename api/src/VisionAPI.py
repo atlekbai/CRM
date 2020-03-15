@@ -61,20 +61,20 @@ class VisionAPI:
 		pr = Person()
 		tr = Transaction()
 
-		pr.lastName = parse(st, "Surname: ", "2. Name:")
-		pr.firstName = parse(st, "Name: ", "3. Middle name:")
-		pr.birthDate = parse(st, "Birthday (dd.mm.yyyy): ", "5. Citizenship:")
-		pr.country = parse(st, "Citizenship: ", "6. IIN:")
-		pr.doc_id = parse(st, "IIN: ", "7. Place of work:")
-		pr.phone = parse(st, "Phone: ", "12. Trajectory")
+		pr.lastName = parse(st, "Surname:", "2. Name:")
+		pr.firstName = parse(st, "Name:", "3. Middle name:")
+		pr.birthDate = parse(st, "Birthday (dd.mm.yyyy):", "5. Citizenship:")
+		pr.country = parse(st, "Citizenship:", "6. IIN:")
+		pr.doc_id = parse(st, "IIN:", "7. Place of work:")
+		pr.phone = parse(st, "Phone:", "12. Trajectory")
 
-		tr.attrs[0] = parse(st, "a. ", "b. ")
-		tr.attrs[1] = parse(st, "b. ", "c. ")
-		tr.attrs[2] = parse(st, "c. ", "9. Did you have")
+		tr.attrs[0] = parse(st, "a.", "b.")
+		tr.attrs[1] = parse(st, "b.", "c.")
+		tr.attrs[2] = parse(st, "c.", "9. Did you have")
 
-		contact = parse(st, "contact with sick people? ", "10. Where do you live").lower()
-		tr.dateTime = parse(st, "Date of filling (dd.mm.yyyy): ", "None")
-		tr._from = parse(st, "From: ", "To:")
+		contact = parse(st, "contact with sick people?", "10. Where do you live").lower()
+		tr.dateTime = parse(st, "Date of filling (dd.mm.yyyy):", "None")
+		tr._from = parse(st, "From:", "To:")
 		tr.to = parse(st, "To:", "13. Date of filling")
 
 		if (contact.find("yes") != -1) :
