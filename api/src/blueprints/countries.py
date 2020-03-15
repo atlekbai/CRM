@@ -53,7 +53,7 @@ def topCountriesEndpoint():
 
 @BP.route("/risky/", methods=["GET", "OPTIONS"])
 def riskyTransactionsEndpoint():
-    FORMAT = "%Y-%m-%dT%H:%M:%S+00:00"
+    FORMAT = "%Y-%m-%dT%H:%M:%S.%f+00:00"
     hasura = Hasura(os.environ["HASURA_ADDR"], os.environ["HASURA_SCRT"])
 
     nonSafeTransactionsQuery = """
