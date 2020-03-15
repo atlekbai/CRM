@@ -3,6 +3,9 @@ services:
   api_crm_anti_corona:
     restart: always
     image: atlekbai/api_crm_anti_corona:latest
+    environment:
+      HASURA_ADDR: "${HASURA_ADDR}"
+      HASURA_SCRT: "${HASURA_SCRT}"
     ports:
       - 7071:80
     volumes:
