@@ -123,6 +123,7 @@ def riskyTransactionsEndpoint():
                         from
                         to
                         person {
+                            id
                             firstName
                             lastName
                         }
@@ -174,6 +175,7 @@ def riskyTransactionsEndpoint():
                     from
                     to
                     person {
+                        id
                         firstName
                         lastName
                     }
