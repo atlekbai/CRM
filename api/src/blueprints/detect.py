@@ -9,7 +9,7 @@ BP = Blueprint("detect", __name__, url_prefix="/detect")
 @BP.route("/", methods=["POST", "OPTIONS", "PUT"])
 def detectEndpoint():
     if request.method != "POST":
-        return
+        return {}
     data = request.json
     image = data.get("image")
     if image == None:
