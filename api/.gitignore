@@ -1,8 +1,0 @@
-__pycache__
-.pytest_cache
-venv
-.DS_Store
-*.pid
-env
-.vscode
-.env

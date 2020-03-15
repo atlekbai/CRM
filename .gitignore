@@ -5,3 +5,5 @@ venv
 *.pid
 env
 .vscode
+mygooglecredentials.json
+.env
