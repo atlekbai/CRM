@@ -54,7 +54,6 @@ def personJournalEndpoint(person_id):
 def addEntityEndpoint():
     if request.method != "POST":
         return {}
-    FORMAT = "%Y-%m-%dT%H:%M:%S.%f+00:00"
     data = request.json
     entity = data.get("entity")
     if entity == None:
@@ -90,7 +89,7 @@ def addEntityEndpoint():
                 }
         }
         """
-        birthDate = datetime.strptime(person["birthDate"].strip(), FORMAT)
+        birthDate = datetime.strptime(person["birthDate"].strip()[:10], "%Y-%m-%d")
         birthDate = datetime.strftime(birthDate, "%Y-%m-%dT%00:00:00.01+00:00")
         person_id = hasura.query(addPersonQuery % (birthDate,
                                                    person["country"],
