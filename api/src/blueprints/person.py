@@ -120,7 +120,7 @@ def addEntityEndpoint():
     transCountries = json.loads(entity["transaction"]["attrs"])
     for country in transCountries:
         countries += f"{country}: true\n"
-    countries = f"{countries}"
+    countries = "{%s}" % (countries)
     contacted = "false"
     if tr["contacted"]:
         contacted = "true"
