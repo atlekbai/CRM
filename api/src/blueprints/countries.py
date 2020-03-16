@@ -59,10 +59,7 @@ def riskyTransactionsEndpoint():
 
     nonSafeTransactionsQuery = """
     {
-    person_record_view(where: {_or: [
-              {_not: {record: {}}},
-              {record: {status_id:{_neq: 4}}}
-            ]}) {
+    person_record_view(where: {record: {status_id: {_neq: 4}}}) {
         record {
             id
             status {
