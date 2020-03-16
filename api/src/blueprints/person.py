@@ -122,7 +122,7 @@ def addEntityEndpoint():
         countries += f"{country}: true\n"
     countries = "{%s}" % (countries)
     contacted = "false"
-    if tr["contacted"]:
+    if tr.get("contacted", False):
         contacted = "true"
     result = hasura.query(addTransactionQuery % (countries, 
                                                  contacted, 
