@@ -1,7 +1,6 @@
 {
   "name": "star-admin-free-react",
   "version": "0.1.0",
-  "homepage": "https://bootstrapdash.com/demo/star-admin-free/react/template/demo_1/preview",
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",

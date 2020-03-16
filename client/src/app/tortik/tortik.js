@@ -31,7 +31,7 @@ class FileInput extends React.Component {
     console.log(file);
     this.main(file).then(r => {
       console.log(r);
-      fetch("http://172.31.15.138:7071/detect/", {
+      fetch("http://api.crm.alem.school/detect/", {
         method: "POST",
         headers: {
           Authorization: `${localStorage.getItem("jwt")}`,

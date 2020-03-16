@@ -78,7 +78,7 @@ class RecordsView extends Component {
   };
 
   componentDidMount() {
-    fetch(`http://172.31.15.138:7071/person/${this.props.id}/history`, {
+    fetch(`http://api.crm.alem.school/person/${this.props.id}/history`, {
       // credentials: "include",
       headers: {
         "accept-language": "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7,fr;q=0.6",
