@@ -2,12 +2,6 @@ import React, { Component, useState } from "react";
 import { Form, Button } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import { CountryDropdown } from "react-country-region-selector";
-// fetch("http://172.31.15.138:7071/detect/", {
-//   headers: {
-//     "Content-Type": "application/json"
-//   },
-//   method: "POST"
-// })
 
 class FileInput extends React.Component {
   constructor(props) {
@@ -18,9 +12,7 @@ class FileInput extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // alert(`Selected file - ${this.fileInput.current.files[0].name}`);
     this.upload(this.fileInput.current.files[0]);
-    // this.upload()
   }
 
   toBase64 = file =>
@@ -41,32 +33,63 @@ class FileInput extends React.Component {
     this.main(file).then(r => {
       console.log(r);
       fetch("http://172.31.15.138:7071/detect/", {
-        // Your POST endpoint
         method: "POST",
         headers: {
-          // Content-Type may need to be completely **omitted**
           Authorization: `${localStorage.getItem("jwt")}`,
-          // or you may need something
           "Content-Type": "application/json"
         },
-        //   mode: "cors",
-
-        // body:
-        //   '{"image":"iVBORw0KGgoAAAANSUhEUgAAABwAAAAVCAYAAABVAo5cAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAZ25vbWUtc2NyZWVuc2hvdO8Dvz4AAAHcSURBVEiJ7ZVPSJNhHMc//nuNbaIbxpvQuyA7OIgXhB2KIMN4QXjpsIudO8ii6CDCIAikUyAIghfFUIIg6mKXgTAQ30MsSiEGIkEj6BXqubybtA33yrTDu9nbtmTz4EH2vT3wfb6f5/f7PQ9PWzAYPOIM1X6WsBbwfAA73Qt//zjR6zrhXhmpZCGsJK+/zGMUhohqc0R6agPMr4+IFR7yZlitT8i+ZWx9pRbo7Z9i7raGDFCysA4l5Es6emAZo1Bx2eTygszh3zxRsLH3BemsiYSEt0cm0AG5vEnmAOzfol6Fl9FVBybMF8Q+GwigyzdCuMN22QWJjxMs7lWXMcvjn07Og9GX3O+zMD5NMJ+pLdgBdquE+wB2iKccGMBBziBZv1GnlgO8oOAHsAXpIvgHnvD0muI49laJpSpHVYjcXSNyvH2Hhfgk74vNAqskea6iXgyVVxtABVg1w5Ig3zjLBdw3yQCKJDPoga30JGM/NGbuTfHv3fvfDBuX8w6LKTazACH00E2nvXSdPvUElVu6S3w7gX5LQ74yzasBixw+AjV2Ge3GEmH3s/j2nGffd5sFQl7MEvtgEQ3dQe2VCWBh/kryLpUABssuCZ9XwedO8EiNlwe0tf7DFrBZ/QF1XJbjfMtYmwAAAABJRU5ErkJggg=="}'
         body: JSON.stringify({ image: r.split("base64,")[1] }) // This is your file object
-        // body: {
-        //   image:
-        // "iVBORw0KGgoAAAANSUhEUgAAABwAAAAVCAYAAABVAo5cAAAABHNCSVQICAgIfAhkiAAAABl0RVh0U29mdHdhcmUAZ25vbWUtc2NyZWVuc2hvdO8Dvz4AAAHcSURBVEiJ7ZVPSJNhHMc//nuNbaIbxpvQuyA7OIgXhB2KIMN4QXjpsIudO8ii6CDCIAikUyAIghfFUIIg6mKXgTAQ30MsSiEGIkEj6BXqubybtA33yrTDu9nbtmTz4EH2vT3wfb6f5/f7PQ9PWzAYPOIM1X6WsBbwfAA73Qt//zjR6zrhXhmpZCGsJK+/zGMUhohqc0R6agPMr4+IFR7yZlitT8i+ZWx9pRbo7Z9i7raGDFCysA4l5Es6emAZo1Bx2eTygszh3zxRsLH3BemsiYSEt0cm0AG5vEnmAOzfol6Fl9FVBybMF8Q+GwigyzdCuMN22QWJjxMs7lWXMcvjn07Og9GX3O+zMD5NMJ+pLdgBdquE+wB2iKccGMBBziBZv1GnlgO8oOAHsAXpIvgHnvD0muI49laJpSpHVYjcXSNyvH2Hhfgk74vNAqskea6iXgyVVxtABVg1w5Ig3zjLBdw3yQCKJDPoga30JGM/NGbuTfHv3fvfDBuX8w6LKTazACH00E2nvXSdPvUElVu6S3w7gX5LQ74yzasBixw+AjV2Ge3GEmH3s/j2nGffd5sFQl7MEvtgEQ3dQe2VCWBh/kryLpUABssuCZ9XwedO8EiNlwe0tf7DFrBZ/QF1XJbjfMtYmwAAAABJRU5ErkJggg=="
-        // }
       })
         .then(
           response => {
             console.log(response);
+
             return response.json();
           } // if the response is a JSON object
         )
         .then(
-          success => console.log(success) // Handle the success response object
+          success => {
+            console.log("yay", success);
+            const {
+              setFirstName,
+              setLastName,
+              setStartDate,
+              setCountry,
+              setDocID,
+              setPhone,
+              setAttrs,
+              setContacted,
+              setFrom,
+              setTo,
+              setDatetime
+            } = this.props;
+            const { person } = success.data;
+            const { transaction } = success.data;
+            const isValidDate = d => {
+              return d instanceof Date && !isNaN(d);
+            };
+            setFirstName(person.firstName);
+            setLastName(person.lastName);
+            setStartDate(
+              isValidDate(new Date(transaction.birthDate))
+                ? new Date(transaction.birthDate)
+                : new Date()
+            );
+            setCountry(person.country);
+            setDocID(person.doc_id);
+            setPhone(person.phone);
+
+            setFrom(transaction._from);
+            setTo(transaction.to);
+            setAttrs(transaction.attrs);
+            setContacted(transaction.contacted);
+
+            setDatetime(
+              isValidDate(new Date(transaction.dateTime))
+                ? new Date(transaction.dateTime)
+                : new Date()
+            );
+          } // Handle the success response object
         )
         .catch(
           error => console.log(error) // Handle the error response object
@@ -91,9 +114,21 @@ class FileInput extends React.Component {
 }
 
 const Tortik = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [startDate, setStartDate] = useState(new Date());
   const [country, setCountry] = useState("");
+  const [doc_id, setDocID] = useState("");
+  const [attrs, setAttrs] = useState({});
+  const [contactd, setContacted] = useState(false);
+  const [stay, setStay] = useState("");
+  const [phone, setPhone] = useState("");
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [flight_id, setFlightID] = useState("");
   const [datetime, setDatetime] = useState(new Date());
+  //   const [personData, setPersonData] = useState({});
+  //   const [transactionData, setTransactionData] = useState({});
 
   return (
     <div className="row">
@@ -103,7 +138,21 @@ const Tortik = () => {
             <h4 className="card-title">Default form</h4>
             <p className="card-description"> Basic form layout </p>
             {/* <form className="forms-sample"></form> */}
-            <FileInput />
+            <FileInput
+              setFirstName={setFirstName}
+              setLastName={setLastName}
+              setStartDate={setStartDate}
+              setCountry={setCountry}
+              setDocID={setDocID}
+              setAttrs={setAttrs}
+              setContacted={setContacted}
+              setStay={setStay}
+              setPhone={setPhone}
+              setFrom={setFrom}
+              setTo={setTo}
+              setFlightID={setFlightID}
+              setDatetime={setDatetime}
+            />
             <form className="forms-sample"></form>
             <Form.Group>
               <label htmlFor="docID">ИИН</label>
@@ -111,8 +160,13 @@ const Tortik = () => {
                 type="text"
                 id="docID"
                 // placeholder={oldLastName || "Фамилия"}
+                value={doc_id}
                 size="lg"
-                // value={lastName}
+                // defaultValue={
+                //   personData.hasOwnProperty("doc_id")
+                //     ? personData.doc_id
+                //     : "empty"
+                // }
                 // onChange={e => setLastName(e.target.value)}
               />
             </Form.Group>
@@ -123,7 +177,12 @@ const Tortik = () => {
                 id="lastName"
                 // placeholder={oldLastName || "Фамилия"}
                 size="lg"
-                // value={lastName}
+                // defaultValue={
+                //   personData.hasOwnProperty("firstName")
+                //     ? personData.firstName
+                //     : "empty"
+                // }
+                value={lastName}
                 // onChange={e => setLastName(e.target.value)}
               />
             </Form.Group>
@@ -133,7 +192,7 @@ const Tortik = () => {
                 type="text"
                 className="form-control"
                 id="firstName"
-                // value={firstName}
+                value={firstName}
                 // onChange={e => setFirstName(e.target.value)}
                 // placeholder={oldFirstName || "Имя"}
               />
@@ -167,7 +226,7 @@ const Tortik = () => {
                 type="text"
                 className="form-control"
                 id="phoneNumber"
-                // value={phone}
+                value={phone}
                 // onChange={e => setPhone(e.target.value)}
                 // placeholder={oldPhone || "Номер телефона"}
               />
@@ -179,7 +238,7 @@ const Tortik = () => {
                 id="from"
                 placeholder="Город"
                 size="lg"
-                // value={from}
+                value={from}
                 // onChange={e => setFrom(e.target.value)}
               />
             </Form.Group>
@@ -190,7 +249,7 @@ const Tortik = () => {
                 id="to"
                 placeholder="Город"
                 size="lg"
-                // value={to}
+                value={to}
                 // onChange={e => setTo(e.target.value)}
               />
             </Form.Group>
@@ -202,7 +261,7 @@ const Tortik = () => {
                 id="places"
                 placeholder="Города"
                 size="lg"
-                // value={visited}
+                value={attrs}
                 // onChange={e => setVisited(e.target.value)}
               />
             </Form.Group>
@@ -213,7 +272,7 @@ const Tortik = () => {
                 className="form-control"
                 id="live"
                 placeholder="Адрес"
-                // value={stay}
+                value={stay}
                 // onChange={e => setStay(e.target.value)}
               />
             </Form.Group>
@@ -258,7 +317,7 @@ const Tortik = () => {
                 timeFormat="p"
                 timeIntervals={15}
                 dateFormat="Pp"
-                // onChange={e => setDatetime(e)}
+                onChange={e => setDatetime(e)}
                 selected={datetime}
               />
             </Form.Group>
