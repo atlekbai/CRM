@@ -30,10 +30,10 @@ class Navbar extends Component {
             <li className="nav-item  nav-profile border-0">
               <Dropdown alignRight>
                 <Dropdown.Toggle className="nav-link count-indicator bg-transparent">
-                  <span className="profile-text">John Doe!</span>
+                  <span className="profile-text">Abylaikhan</span>
                   <img
                     className="img-xs rounded-circle"
-                    src={require("../../assets/images/faces/face8.jpg")}
+                    src="https://avatars3.githubusercontent.com/u/25000090?s=460&u=b035b85331398c75a59afb1917f0c64e2c3885be&v=4"
                     alt="Profile"
                   />
                 </Dropdown.Toggle>

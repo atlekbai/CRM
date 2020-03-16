@@ -51,13 +51,9 @@ class Sidebar extends Component {
       <nav className="sidebar sidebar-offcanvas" id="sidebar">
         <div className="text-center sidebar-brand-wrapper d-flex align-items-center">
           <a className="sidebar-brand brand-logo" href="index.html">
-            <img src={require("../../assets/images/logo.svg")} alt="logo" />
+            
           </a>
           <a className="sidebar-brand brand-logo-mini pt-3" href="index.html">
-            <img
-              src={require("../../assets/images/logo-mini.svg")}
-              alt="logo"
-            />
           </a>
         </div>
         <ul className="nav">
@@ -68,14 +64,14 @@ class Sidebar extends Component {
                   <div className="d-flex justify-content-between align-items-start">
                     <div className="profile-image">
                       <img
-                        src={require("../../assets/images/faces/face8.jpg")}
+                        src="https://avatars3.githubusercontent.com/u/25000090?s=460&u=b035b85331398c75a59afb1917f0c64e2c3885be&v=4"
                         alt="profile"
                       />
                     </div>
                     <div className="text-left ml-3">
-                      <p className="profile-name">John Doe</p>
+                      <p className="profile-name">Abylaikhan Zulbukharov</p>
                       <small className="designation text-muted text-small">
-                        God
+                        Developer
                       </small>
                       <span className="status-indicator online"></span>
                     </div>
