@@ -8,7 +8,7 @@ BP = Blueprint("person", __name__, url_prefix="/person")
 
 @BP.route("/<int:person_id>/history", methods=["GET", "OPTIONS", "PUT"])
 def personJournalEndpoint(person_id):
-    FORMAT = "%Y-%m-%dT%H:%M:%S.%f+00:00"
+    FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
     hasura = Hasura(os.environ["HASURA_ADDR"], os.environ["HASURA_SCRT"])
     activityQuery = """
     {
@@ -54,6 +54,7 @@ def personJournalEndpoint(person_id):
 def addEntityEndpoint():
     if request.method != "POST":
         return {}
+    FORMAT = "%Y-%m-%dT%H:%M:%S.%f+00:00"
     data = request.json
     entity = data.get("entity")
     if entity == None:
@@ -89,7 +90,7 @@ def addEntityEndpoint():
                 }
         }
         """
-        birthDate = datetime.strptime(person["birthDate"].strip(), "%d.%m.%Y")
+        birthDate = datetime.strptime(person["birthDate"].strip(), FORMAT)
         birthDate = datetime.strftime(birthDate, "%Y-%m-%dT%00:00:00.01+00:00")
         person_id = hasura.query(addPersonQuery % (birthDate,
                                                    person["country"],
