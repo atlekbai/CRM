@@ -126,7 +126,7 @@ def addEntityEndpoint():
         contacted = "true"
     result = hasura.query(addTransactionQuery % (countries, 
                                                  contacted, 
-                                                 tr["dateTime"], 
+                                                 tr["datetime"], 
                                                  tr["flight_id"], 
                                                  tr["_from"], 
                                                  person_id, 
