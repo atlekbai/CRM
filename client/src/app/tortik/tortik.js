@@ -24,7 +24,6 @@ class FileInput extends React.Component {
     });
 
   main = async file => {
-    // const file = document.querySelector("#myfile").files[0];
     return await this.toBase64(file);
   };
 
@@ -97,8 +96,6 @@ class FileInput extends React.Component {
     });
   };
 
-  //   onSelectFile = () => upload(input.files[0]);
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -120,7 +117,7 @@ const Tortik = () => {
   const [country, setCountry] = useState("");
   const [doc_id, setDocID] = useState("");
   const [attrs, setAttrs] = useState({});
-  const [contactd, setContacted] = useState(false);
+  const [contacted, setContacted] = useState(false);
   const [stay, setStay] = useState("");
   const [phone, setPhone] = useState("");
   const [from, setFrom] = useState("");
@@ -130,14 +127,64 @@ const Tortik = () => {
   //   const [personData, setPersonData] = useState({});
   //   const [transactionData, setTransactionData] = useState({});
 
+  const InsertPersonAndTransaction = () => {
+    // api.crm.alem.school/person/addEntity/
+    const url = "http://api.crm.alem.school/person/addEntity/";
+    const data = {
+      entity: {
+        person: {
+          lastName,
+          firstName,
+          birthDate: startDate,
+          phone,
+          doc_id,
+          country
+        },
+        transaction: {
+          attrs: JSON.stringify(["Italy"]),
+          contacted,
+          datetime,
+          flight_id,
+          _from: from,
+          to,
+          stay
+        }
+      }
+    };
+    console.log(JSON.stringify(data));
+    fetch(url, {
+      method: "POST", // or ‘PUT’
+      body: JSON.stringify(data), // data can be `string` or {object}!
+      headers: { "Content-Type": "application/json" }
+    })
+      .then(res => res.json())
+      .catch(error => console.error("Error:", error))
+      .then(response => console.log("Success:", response));
+
+    console.log("hello");
+    console.log(
+      lastName,
+      firstName,
+      startDate,
+      country,
+      doc_id,
+      attrs,
+      stay,
+      phone,
+      from,
+      to,
+      flight_id,
+      datetime
+    );
+  };
+
   return (
     <div className="row">
       <div className="col-12 grid-margin stretch-card">
         <div className="card">
           <div className="card-body">
-            <h4 className="card-title">Default form</h4>
-            <p className="card-description"> Basic form layout </p>
-            {/* <form className="forms-sample"></form> */}
+            <h4 className="card-title">Форма с распознованием текста</h4>
+            <p className="card-description"> </p>
             <FileInput
               setFirstName={setFirstName}
               setLastName={setLastName}
@@ -153,185 +200,186 @@ const Tortik = () => {
               setFlightID={setFlightID}
               setDatetime={setDatetime}
             />
-            <form className="forms-sample"></form>
-            <Form.Group>
-              <label htmlFor="docID">ИИН</label>
-              <Form.Control
-                type="text"
-                id="docID"
-                // placeholder={oldLastName || "Фамилия"}
-                value={doc_id}
-                size="lg"
-                // defaultValue={
-                //   personData.hasOwnProperty("doc_id")
-                //     ? personData.doc_id
-                //     : "empty"
-                // }
-                // onChange={e => setLastName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="lastName">Фамилия</label>
-              <Form.Control
-                type="text"
-                id="lastName"
-                // placeholder={oldLastName || "Фамилия"}
-                size="lg"
-                // defaultValue={
-                //   personData.hasOwnProperty("firstName")
-                //     ? personData.firstName
-                //     : "empty"
-                // }
-                value={lastName}
-                // onChange={e => setLastName(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="firstName">Имя</label>
-              <Form.Control
-                type="text"
-                className="form-control"
-                id="firstName"
-                value={firstName}
-                // onChange={e => setFirstName(e.target.value)}
-                // placeholder={oldFirstName || "Имя"}
-              />
-            </Form.Group>
-            <Form.Group className="row">
-              <label className="col-sm-3 col-form-label">Дата рождения</label>
-              <div className="col-sm-9">
+            <form
+              className="forms-sample"
+              onSubmit={e => {
+                console.log("w");
+                e.preventDefault();
+                InsertPersonAndTransaction();
+              }}
+            >
+              <Form.Group>
+                <label htmlFor="docID">ИИН</label>
+                <Form.Control
+                  type="text"
+                  id="docID"
+                  value={doc_id}
+                  size="lg"
+                  onChange={e => setDocID(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="lastName">Фамилия</label>
+                <Form.Control
+                  type="text"
+                  id="lastName"
+                  // placeholder={oldLastName || "Фамилия"}
+                  size="lg"
+                  // defaultValue={
+                  //   personData.hasOwnProperty("firstName")
+                  //     ? personData.firstName
+                  //     : "empty"
+                  // }
+                  value={lastName}
+                  onChange={e => setLastName(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="firstName">Имя</label>
+                <Form.Control
+                  type="text"
+                  className="form-control"
+                  id="firstName"
+                  value={firstName}
+                  onChange={e => setFirstName(e.target.value)}
+                  // placeholder={oldFirstName || "Имя"}
+                />
+              </Form.Group>
+              <Form.Group className="row">
+                <label className="col-sm-3 col-form-label">Дата рождения</label>
+                <div className="col-sm-9">
+                  <DatePicker
+                    className="form-control w-100"
+                    selected={startDate}
+                    onChange={e => setStartDate(e)}
+                  />
+                </div>
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="country">Гражданство</label>
+                <CountryDropdown
+                  defaultOptionLabel="Выберите страну"
+                  className="form-control"
+                  value={country}
+                  onChange={val => setCountry(val)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="phoneNumber">Номер телефона</label>
+                <Form.Control
+                  type="text"
+                  className="form-control"
+                  id="phoneNumber"
+                  value={phone}
+                  onChange={e => setPhone(e.target.value)}
+                  // placeholder={oldPhone || "Номер телефона"}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="from">Откуда</label>
+                <Form.Control
+                  type="text"
+                  id="from"
+                  placeholder="Город"
+                  size="lg"
+                  value={from}
+                  onChange={e => setFrom(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="to">Куда</label>
+                <Form.Control
+                  type="text"
+                  id="to"
+                  placeholder="Город"
+                  size="lg"
+                  value={to}
+                  onChange={e => setTo(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="places">Страны за последние 14 дней</label>
+                <Form.Control
+                  as="textarea"
+                  rows="4"
+                  id="places"
+                  placeholder="Города"
+                  size="lg"
+                  value={attrs}
+                  onChange={e => setAttrs(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="live">Место проживания</label>
+                <Form.Control
+                  type="text"
+                  className="form-control"
+                  id="live"
+                  placeholder="Адрес"
+                  value={stay}
+                  onChange={e => setStay(e.target.value)}
+                />
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="contact">Контакт с больными</label>
+                <div className="form-check">
+                  <label className="form-check-label">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      name="optionsRadios"
+                      id="optionsRadios1"
+                      value="false"
+                      onChange={e => setContacted(false)}
+                      defaultChecked
+                    />
+                    <i className="input-helper"></i>
+                    Нет
+                  </label>
+                </div>
+                <div className="form-check">
+                  <label className="form-check-label">
+                    <input
+                      type="radio"
+                      className="form-check-input"
+                      name="optionsRadios"
+                      id="optionsRadios2"
+                      value="true"
+                      onChange={e => setContacted(true)}
+                    />
+                    <i className="input-helper"></i>
+                    Да
+                  </label>
+                </div>
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="date">Дата</label>
                 <DatePicker
                   className="form-control w-100"
-                  selected={
-                    // oldBirthDate && oldBirthDate !== ""
-                    //   ? new Date(oldBirthDate)
-                    startDate
-                  }
-                  onChange={e => setStartDate(e)}
+                  locale="pt-BR"
+                  showTimeSelect
+                  timeFormat="p"
+                  timeIntervals={15}
+                  dateFormat="Pp"
+                  onChange={e => setDatetime(e)}
+                  selected={datetime}
                 />
-              </div>
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="country">Гражданство</label>
-              <CountryDropdown
-                defaultOptionLabel="Выберите страну"
-                className="form-control"
-                value={country}
-                onChange={val => setCountry(val)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="phoneNumber">Номер телефона</label>
-              <Form.Control
-                type="text"
-                className="form-control"
-                id="phoneNumber"
-                value={phone}
-                // onChange={e => setPhone(e.target.value)}
-                // placeholder={oldPhone || "Номер телефона"}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="from">Откуда</label>
-              <Form.Control
-                type="text"
-                id="from"
-                placeholder="Город"
-                size="lg"
-                value={from}
-                // onChange={e => setFrom(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="to">Куда</label>
-              <Form.Control
-                type="text"
-                id="to"
-                placeholder="Город"
-                size="lg"
-                value={to}
-                // onChange={e => setTo(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="places">Страны за последние 14 дней</label>
-              <Form.Control
-                as="textarea"
-                rows="4"
-                id="places"
-                placeholder="Города"
-                size="lg"
-                value={attrs}
-                // onChange={e => setVisited(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="live">Место проживания</label>
-              <Form.Control
-                type="text"
-                className="form-control"
-                id="live"
-                placeholder="Адрес"
-                value={stay}
-                // onChange={e => setStay(e.target.value)}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="contact">Контакт с больными</label>
-              <div className="form-check">
-                <label className="form-check-label">
-                  <input
-                    type="radio"
-                    className="form-check-input"
-                    name="optionsRadios"
-                    id="optionsRadios1"
-                    value="false"
-                    // onChange={e => setContacted(false)}
-                    defaultChecked
-                  />
-                  <i className="input-helper"></i>
-                  Нет
-                </label>
-              </div>
-              <div className="form-check">
-                <label className="form-check-label">
-                  <input
-                    type="radio"
-                    className="form-check-input"
-                    name="optionsRadios"
-                    id="optionsRadios2"
-                    value="true"
-                    // onChange={e => setContacted(true)}
-                  />
-                  <i className="input-helper"></i>
-                  Да
-                </label>
-              </div>
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="date">Дата</label>
-              <DatePicker
-                className="form-control w-100"
-                locale="pt-BR"
-                showTimeSelect
-                timeFormat="p"
-                timeIntervals={15}
-                dateFormat="Pp"
-                onChange={e => setDatetime(e)}
-                selected={datetime}
-              />
-            </Form.Group>
-            <Form.Group>
-              <label htmlFor="flight">Рейс</label>
-              <Form.Control
-                type="text"
-                id="flight"
-                placeholder="номер рейса"
-                size="lg"
-                // value={flightID}
-                // onChange={e => setFlightID(e.target.value)}
-              />
-            </Form.Group>
+              </Form.Group>
+              <Form.Group>
+                <label htmlFor="flight">Рейс</label>
+                <Form.Control
+                  type="text"
+                  id="flight"
+                  placeholder="номер рейса"
+                  size="lg"
+                  value={flight_id}
+                  onChange={e => setFlightID(e.target.value)}
+                />
+              </Form.Group>
+              <button type="submit" className="btn btn-primary mr-2">
+                Submit
+              </button>
+            </form>
           </div>
         </div>
       </div>
