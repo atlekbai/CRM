@@ -210,7 +210,7 @@ def riskyTransactionsEndpoint():
                     found = True
                     break
             if not found:
-                trans["type"] = "Risky Country"
+                trans["record"] = {"name": "Risky country"}
                 riskyTransactions.append(trans)
     riskyTransactions = sorted(riskyTransactions, key=lambda k: datetime.strptime(k['created_at'], "%Y-%m-%dT%H:%M:%S.%f+00:00"), reverse=True) 
     response = {
